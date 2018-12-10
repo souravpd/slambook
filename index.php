@@ -1,16 +1,11 @@
 <?php 
 require_once("core/init.php");
 
-$db = DB::getInstance();
-$db = $db->get("users",array("username",array("username","=","alex")));
-if($db!=false){
-    if($db->count){
-        echo "OK";
+$db = DB::getInstance()->get("users",array("full_name","=","alex"));
+
+    if(!$db->count()){
+        echo "No user";
+    }else{
+        print_r($db->results());
     }
-    else{
-        echo " NO";
-    }
-}
-else{
-    echo "NOT EXECUTED";
-}
+?>
