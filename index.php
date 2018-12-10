@@ -1,11 +1,7 @@
 <?php 
 require_once("core/init.php");
 
-$db = DB::getInstance()->get("users",array("full_name","=","alex"));
+$db = DB::getInstance()->update("users","18je0834",array(
+"full_name"=>"SouravPrasad","branch"=>"Mineral"));
 
-    if(!$db->count()){
-        echo "No user";
-    }else{
-        print_r($db->results());
-    }
 ?>

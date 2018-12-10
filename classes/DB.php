@@ -64,6 +64,48 @@
         public function delete($table , $where){
             return $this->action('DELETE',$table,$where);
         }
+
+        public function insert($table,$fields = array()){
+                if(count($fields)){
+                    $keys = array_keys($fields);
+                    $values = "";
+                    $x=1;
+                    foreach($fields as $field ){
+                        $values.='?';
+                        if($x<count($fields)){
+                            $values.=',';
+                        }
+                        $x++;
+                    }
+
+                $sql = "INSERT INTO {$table}(`".implode("`,`",$keys)."`) VALUES ({$values})";
+                    if(!$this->query($sql,$fields)->error()){
+                        return true;
+                    }
+
+                }
+                return false;
+        }
+
+        public function update($table,$admno,$fields = array()){
+            $x=1;
+            $set='';
+            foreach($fields as $key=>$value) {
+                $set.=" {$key}= ? ";
+                if($x < count($fields)){
+                    $set.=",";
+                }
+                $x++;
+            }
+            $sql = "UPDATE {$table} SET {$set} WHERE admno = '{$admno}'";
+            
+          if(!$this->query($sql,$fields)->error()){
+              return true;
+          }
+          else{
+              echo " failed";
+          }
+        }
         public function results(){
             return $this->_results;
         }
